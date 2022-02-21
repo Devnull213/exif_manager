@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from custom_exceptions import NotValidExifInfo
-import sys
 import os
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
@@ -52,6 +51,9 @@ class Manage_exif:
                 report_data = '\n'.join(data)
         print(report_data)
         return report_data
+
+    def get_report_gps_data(self, gps_info: dict, url: str):
+        pass
 
 
     def default_info(self):
