@@ -4,7 +4,6 @@ from custom_exceptions import NotValidExifInfo
 import os
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
-import time
 
 class Manage_exif:
 
@@ -46,12 +45,12 @@ class Manage_exif:
     def get_report_exif_data(self, exif_info: dict) -> str:
         data = [f"{key}: {value}" for key, value in exif_info.items() if key != 'MakerNote' and key != 'GPSInfo']
         report_data = '\n'.join(data)
-        print(report_data)
         return report_data
 
-    def get_report_gps_data(self, gps_info: dict, url: str):
-        print(gps_info)
-        print(url)
+    def get_report_gps_data(self, gps_info: dict, url: str) -> str:
+        data = [f"{key}: {value}" for key, value in gps_info.items()]
+        report_data = '\n'.join(data)
+        return report_data
 
 
     def default_info(self):
