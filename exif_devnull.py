@@ -35,12 +35,10 @@ def main():
             manager = Manage_exif(sys.argv[1])
             manager.is_exif_valid()
             exif_info = manager.get_exif()
-            # for key in exif_info.keys():
-                # if key == 'GPSInfo':
-                    # print("GPSSSSSSSSs")
-                    # gps_info = manager.get_gps_exif(exif_info)
-                    # map_url = manager.create_map_url(gps_info)
+            gps_info = manager.get_gps_exif(exif_info)
+            map_url = manager.create_map_url(gps_info)
             manager.get_report_exif_data(exif_info)
+            manager.get_report_gps_data(gps_info, map_url)
             manager.default_info()
             # manager.delete_exif(exif)
             manager.end_img_instance()
