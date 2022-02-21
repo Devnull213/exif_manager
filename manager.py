@@ -44,16 +44,14 @@ class Manage_exif:
 
 
     def get_report_exif_data(self, exif_info: dict) -> str:
-        data = ["Exif Data General Info"] 
-        for key, value in exif_info.items():
-            if key != 'MakerNote' and key != 'GPSInfo':
-                data.append(f"{key}: {value}")
-                report_data = '\n'.join(data)
+        data = [f"{key}: {value}" for key, value in exif_info.items() if key != 'MakerNote' and key != 'GPSInfo']
+        report_data = '\n'.join(data)
         print(report_data)
         return report_data
 
     def get_report_gps_data(self, gps_info: dict, url: str):
-        pass
+        print(gps_info)
+        print(url)
 
 
     def default_info(self):
@@ -65,7 +63,7 @@ class Manage_exif:
         # print(data2.width)
         # image_attr = ['filename', 'format', 'mode', 'size', 'width', 'heigth' ]
         data = self.img_instance.__dict__
-        print(data['info']['exif'])
+        # print(data['info']['exif'])
         # exif = {TAGS[key]:value for key, value in data['info']['exif'] if key in TAGS}
         # print(exif)
 
