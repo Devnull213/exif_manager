@@ -26,22 +26,22 @@ class Manage_exif:
 
 
     def get_gps_exif(self, exif: dict) -> dict:
-        gps_data = exif['GPSInfo']
+        gps_data = exif["GPSInfo"]
         gps_exif = {GPSTAGS[key]:value for key, value in gps_data.items() if key in GPSTAGS}
         return gps_exif
 
 
     def create_map_url(self, gps_info: dict) -> str:
-        latitude = gps_info['GPSLatitude']
-        longitude = gps_info['GPSLongitude']
+        latitude = gps_info["GPSLatitude"]
+        longitude = gps_info["GPSLongitude"]
         final_latitude = latitude[0] + (latitude[1]/60.0) + (latitude[2]/3600.0)
         final_longitude = longitude[0] + (longitude[1]/60.0) + (longitude[2]/3600.0)
-        map_url = f'https://www.google.com/maps/?q={final_latitude},{final_longitude}'
+        map_url = f"https://www.google.com/maps/?q={final_latitude},{final_longitude}"
         return map_url
 
 
     def get_report_exif_data(self, exif_info: dict) -> str:
-        data = [f"{key}: {value}" for key, value in exif_info.items() if key != 'MakerNote' and key != 'GPSInfo']
+        data = [f"{key}: {value}" for key, value in exif_info.items() if key != "MakerNote" and key != "GPSInfo"]
         report_data = '\n'.join(data)
         return report_data
 
@@ -62,16 +62,17 @@ class Manage_exif:
         data = self.img_instance.__dict__
 
     def create_report_and_export(self, exif_data: str, gps_data=''):
-        exif_banner = '''
+        exif_banner = """
 ======================================
 ========== EXIF INFORMATION ==========
-======================================'''
-        gps_banner = ('''
+======================================"""
+
+        gps_banner = """
 ======================================
 =========== GPS INFORMATION ==========                
-======================================''')
-        report_data = f'{exif_banner}\n{exif_data}\n{gps_banner}\n{gps_data}'
-        with open ('./report.txt', 'w') as report:
+======================================"""
+        report_data = f"{exif_banner}\n{exif_data}\n{gps_banner}\n{gps_data}"
+        with open ("./report.txt", 'w') as report:
             report.write(report_data)
 
 

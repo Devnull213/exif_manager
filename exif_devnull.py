@@ -52,8 +52,8 @@ def main():
     time.sleep(0.3)
     print("Program finished.")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     s = time.perf_counter()
     main()
     elapsed = time.perf_counter() - s
-    print(f'{__file__}, took {elapsed} to run.')
+    print(f"{__file__}, took {elapsed} to run.")
