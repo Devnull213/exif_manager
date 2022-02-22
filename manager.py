@@ -54,6 +54,7 @@ class Manage_exif:
     def default_info(self):
         # data2 = self.img_instance
         # print(data2.filename)
+        pass
 
     def create_report_and_export(self, exif_data: str, gps_data=''):
         exif_banner = """
