@@ -32,12 +32,11 @@ class Manage_exif:
 
 
     def create_map_url(self, gps_info: dict) -> str:
-        template = 'https://www.google.com/maps/?q='
         latitude = gps_info['GPSLatitude']
         longitude = gps_info['GPSLongitude']
         final_latitude = latitude[0] + (latitude[1]/60.0) + (latitude[2]/3600.0)
         final_longitude = longitude[0] + (longitude[1]/60.0) + (longitude[2]/3600.0)
-        map_url = f'{template}{final_latitude},{final_longitude}'
+        map_url = f'https://www.google.com/maps/?q={final_latitude},{final_longitude}'
         return map_url
 
 
