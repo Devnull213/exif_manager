@@ -17,15 +17,16 @@ def main():
 (_______/|/     \|\_______/|/         (______/ (_______/   \_/   |/    )_)(_______)(_______/(_______/
 
                 """)
-    print("Welcome to the exif manager, please choose an option:\n")
-    print("1) View exif info on terminal")
-    print("2) Export exif info on txt")
-    print("3) Delete exif info")
-    print("0) Quit")
 
     option = 100
 
     while option != 0:
+
+        print("Welcome to the exif manager, please choose an option:\n")
+        print("1) View exif info on terminal")
+        print("2) Export exif info on txt")
+        print("3) Delete exif info")
+        print("0) Quit\n")
 
         option = int(input("Enter option:\n"))
         time.sleep(0.3)
@@ -37,9 +38,10 @@ def main():
             exif_info = manager.get_exif()
             gps_info = manager.get_gps_exif(exif_info)
             map_url = manager.create_map_url(gps_info)
-            manager.get_report_exif_data(exif_info)
-            manager.get_report_gps_data(gps_info, map_url)
+            exif_report = manager.get_report_exif_data(exif_info)
+            gps_report = manager.get_report_gps_data(gps_info, map_url)
             manager.default_info()
+            manager.create_report_and_export(exif_report, gps_report)
             # manager.delete_exif(exif)
             manager.end_img_instance()
         elif option == 2:

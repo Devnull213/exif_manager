@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from custom_exceptions import NotValidExifInfo
 import os
 from PIL import Image
@@ -62,18 +61,20 @@ class Manage_exif:
         # print(data2.width)
         # image_attr = ['filename', 'format', 'mode', 'size', 'width', 'heigth' ]
         data = self.img_instance.__dict__
-        # print(data['info']['exif'])
-        # exif = {TAGS[key]:value for key, value in data['info']['exif'] if key in TAGS}
-        # print(exif)
 
-        default_keywords = [ item for item in data.keys() ]
-        default_items = [ item for item in data.values() ]
+    def create_report_and_export(self, exif_data: str, gps_data=''):
+        exif_banner = '''
+======================================
+========== EXIF INFORMATION ==========
+======================================'''
+        gps_banner = ('''
+======================================
+=========== GPS INFORMATION ==========                
+======================================''')
+        report_data = f'{exif_banner}\n{exif_data}\n{gps_banner}\n{gps_data}'
+        with open ('./report.txt', 'w') as report:
+            report.write(report_data)
 
-        # for item in default_keywords:
-            # print(data2.item)
-        # print(default_keywords)
-        # print(default_items)
-            
 
 
     # def delete_exif(self, exif):
