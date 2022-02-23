@@ -20,20 +20,22 @@ def main():
 
     option = 100
 
+    manager = Manage_exif(sys.argv[1])
+
+    print("""Welcome to the exif manager, please choose an option:\n
+    1) View exif info on terminal\r
+    2) Export exif info on txt\r
+    3) Delete exif info\r
+    0) Quit\n""")
+
     while option != 0:
 
-        print("Welcome to the exif manager, please choose an option:\n")
-        print("1) View exif info on terminal")
-        print("2) Export exif info on txt")
-        print("3) Delete exif info")
-        print("0) Quit\n")
-
-        option = int(input("Enter option:\n"))
+        option = int(input("Enter option: "))
         time.sleep(0.3)
         assert option < 4, "The option is out of range"
 
         if option == 1:
-            manager = Manage_exif(sys.argv[1])
+            manager.has_gps()
             manager.is_exif_valid()
             exif_info = manager.get_exif()
             gps_info = manager.get_gps_exif(exif_info)

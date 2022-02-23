@@ -83,3 +83,24 @@ class Manage_exif:
         self.img_instance.close()
         print("closed")
 
+
+    # Execution Cases
+
+    def has_gps(self):
+        data = self.get_exif()
+        verification = [True if key == 'GPSInfo' else False for key in data.keys()]
+        return verification[0]
+
+
+    def normal_execution(self):
+        exif = self.get_exif()
+        self.get_report_exif_data(exif)
+        self.default_info()
+
+    def with_gps(self):
+        self.get_exif()
+        self.get_report_exif_data()
+        self.default_info()
+
+
+
