@@ -18,34 +18,28 @@ def main():
 
                 """)
 
-    option = 100
+    option = 100 
+
+    manager = Manage_exif(sys.argv[1])
+    main_data = manager.main_exec()
+
+    print("""Welcome to the exif manager, please choose an option:\n
+    1) View exif info on terminal\r
+    2) Export exif info on txt\r
+    3) Delete exif info\r
+    0) Quit\n""")
 
     while option != 0:
 
-        print("Welcome to the exif manager, please choose an option:\n")
-        print("1) View exif info on terminal")
-        print("2) Export exif info on txt")
-        print("3) Delete exif info")
-        print("0) Quit\n")
-
-        option = int(input("Enter option:\n"))
+        option = int(input("Enter option: "))
         time.sleep(0.3)
-        assert option < 4, "The option is out of range"
 
         if option == 1:
-            manager = Manage_exif(sys.argv[1])
-            manager.is_exif_valid()
-            exif_info = manager.get_exif()
-            gps_info = manager.get_gps_exif(exif_info)
-            map_url = manager.create_map_url(gps_info)
-            exif_report = manager.get_report_exif_data(exif_info)
-            gps_report = manager.get_report_gps_data(gps_info, map_url)
-            manager.default_info()
-            manager.create_report_and_export(exif_report, gps_report)
-            # manager.delete_exif(exif)
-            manager.end_img_instance()
+            print(main_data)
         elif option == 2:
-            pass
+            with open ("./report.txt", "w") as report:
+                report.write(main_data)
+            print("Report generated succesfully.")
         elif option == 3:
             pass
 
