@@ -12,11 +12,12 @@ class Manage_exif:
         self.img_instance = Image.open(image)
     
 
-    def is_exif_valid(self) -> None:
+    def is_exif_valid(self) -> bool:
         nonetype = type(None)
         data = self.img_instance._getexif()
         if isinstance(data, nonetype) or len(data) <= 0:
-            raise NotValidExifInfo(data)
+            return False
+        return True
 
 
     def get_exif(self) -> dict:
@@ -48,6 +49,7 @@ class Manage_exif:
         report_data = '\n'.join(data)
         return report_data
 
+
     def get_report_gps_data(self) -> str:
         gps_info = self.get_gps_exif()
         data = [f"{key}: {value}" for key, value in gps_info.items()]
@@ -55,15 +57,11 @@ class Manage_exif:
         return report_data
 
 
-    def report_format(self, reportexif):
-        for item in reportexif:
-            print(item)
+    def default_info(self) -> str:
+        data = self.img_instance
+        example = data.filename
+        return example
 
-
-    def default_info(self):
-        # data2 = self.img_instance
-        # print(data2.filename)
-        pass
 
     def exif_report(self) -> None:
         exif_data = self.get_report_exif_data()
@@ -73,6 +71,7 @@ class Manage_exif:
 ======================================"""
         report_data = f"{exif_banner}\n{exif_data}\n"
         return report_data
+
 
     def gps_report(self) -> None:
         gps_data = self.get_report_gps_data()
@@ -84,20 +83,13 @@ class Manage_exif:
         return report_data
     
 
-    def show_data(self, exif_data, gps_data=''):
-        print(exif_data)
-        print(gps_data)
-
-
-    def export(self):
-        with open (f"./report.txt", 'w') as report:
-            report.write(data)
-
-    # def delete_exif(self, exif) -> None:
-        # self.data = self.img_instance._getexif()
-        # self.data = self.replacement
-        # self.img_instance.save(sys.argv[1])
-        # print(self.data)
+    def delete_exif(self) -> None:
+        if self.is_exif_valid() == False:
+            print("This image it's already free from exif info! :)\n")
+        else:
+            data = self.img_instance._getexif()
+            data.clear()
+            self.img_instance.save(self.image)
 
 
     def end_img_instance(self) -> None:
@@ -119,6 +111,7 @@ class Manage_exif:
         data = self.exif_report()
         return data
 
+
     def with_gps(self) -> str:
         self.get_exif()
         self.get_gps_exif()
@@ -130,9 +123,15 @@ class Manage_exif:
         data = exif + gps
         return data
 
+    def clean_exif(self):
+        data = self.default_info()
+        return data
+
 
     def main_exec(self) -> str:
-        if len(self.has_gps()) > 0:
+        if self.is_exif_valid() == False:
+            return self.clean_exif()
+        elif len(self.has_gps()) > 0:
             return self.with_gps()
         else:
             return self.normal_execution()

@@ -18,7 +18,7 @@ def main():
 
                 """)
 
-    option = 100 
+    option = 1
 
     manager = Manage_exif(sys.argv[1])
     main_data = manager.main_exec()
@@ -32,22 +32,22 @@ def main():
     while option != 0:
 
         option = int(input("Enter option: "))
-        time.sleep(0.3)
 
-        if option == 1:
-            print(main_data)
-        elif option == 2:
-            with open ("./report.txt", "w") as report:
-                report.write(main_data)
-            print("Report generated succesfully.")
-        elif option == 3:
-            pass
+        if option <= 3:
+            time.sleep(0.3)
+
+            if option == 1:
+                print(main_data)
+            elif option == 2:
+                with open ("./report.txt", "w") as report:
+                    report.write(main_data)
+                print("Report generated succesfully.\n")
+            elif option == 3:
+                manager.delete_exif()
 
     time.sleep(0.3)
+    manager.end_img_instance()
     print("Program finished.")
 
 if __name__ == "__main__":
-    s = time.perf_counter()
     main()
-    elapsed = time.perf_counter() - s
-    print(f"{__file__}, took {elapsed} to run.")
