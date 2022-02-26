@@ -17,43 +17,37 @@ def main():
 (_______/|/     \|\_______/|/         (______/ (_______/   \_/   |/    )_)(_______)(_______/(_______/
 
                 """)
-    print("Welcome to the exif manager, please choose an option:\n")
-    print("1) View exif info on terminal")
-    print("2) Export exif info on txt")
-    print("3) Delete exif info")
-    print("0) Quit")
 
-    option = 100
+    option = 1
+
+    manager = Manage_exif(sys.argv[1])
+    main_data = manager.main_exec()
+
+    print("""Welcome to the exif manager, please choose an option:\n
+    1) View exif info on terminal\r
+    2) Export exif info on txt\r
+    3) Delete exif info\r
+    0) Quit\n""")
 
     while option != 0:
 
-        option = int(input("Enter option:\n"))
-        time.sleep(0.3)
-        assert option < 4, "The option is out of range"
+        option = int(input("Enter option: "))
 
-        if option == 1:
-            manager = Manage_exif(sys.argv[1])
-            manager.is_exif_valid()
-            exif_info = manager.get_exif()
-            # for key in exif_info.keys():
-                # if key == 'GPSInfo':
-                    # print("GPSSSSSSSSs")
-                    # gps_info = manager.get_gps_exif(exif_info)
-                    # map_url = manager.create_map_url(gps_info)
-            manager.get_report_exif_data(exif_info)
-            manager.default_info()
-            # manager.delete_exif(exif)
-            manager.end_img_instance()
-        elif option == 2:
-            pass
-        elif option == 3:
-            pass
+        if option <= 3:
+            time.sleep(0.3)
+
+            if option == 1:
+                print(main_data)
+            elif option == 2:
+                with open ("./report.txt", "w") as report:
+                    report.write(main_data)
+                print("Report generated succesfully.\n")
+            elif option == 3:
+                manager.delete_exif()
 
     time.sleep(0.3)
+    manager.end_img_instance()
     print("Program finished.")
 
-if __name__ == '__main__':
-    s = time.perf_counter()
+if __name__ == "__main__":
     main()
-    elapsed = time.perf_counter() - s
-    print(f'{__file__}, took {elapsed} to run.')
