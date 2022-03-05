@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-from custom_exceptions import NotValidExifInfo
-import os 
+
 from PIL import Image 
 from PIL.ExifTags import TAGS, GPSTAGS 
-class Manage_exif:
 
-    replacement = {'exif':'No data'}
+class Manage_exif:
 
     def __init__(self, image: str):
         self.image = image
@@ -63,7 +61,7 @@ class Manage_exif:
         return example
 
 
-    def exif_report(self) -> None:
+    def exif_report(self) -> str:
         exif_data = self.get_report_exif_data()
         exif_banner = """
 ======================================
@@ -73,7 +71,7 @@ class Manage_exif:
         return report_data
 
 
-    def gps_report(self) -> None:
+    def gps_report(self) -> str:
         gps_data = self.get_report_gps_data()
         gps_banner = """
 ======================================
@@ -135,6 +133,4 @@ class Manage_exif:
             return self.with_gps()
         else:
             return self.normal_execution()
-
-
 
