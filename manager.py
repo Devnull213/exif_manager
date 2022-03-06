@@ -85,14 +85,15 @@ class Manage_exif:
         if self.is_exif_valid() == False:
             print("This image it's already free from exif info! :)\n")
         else:
-            data = self.img_instance._getexif()
-            data.clear()
-            self.img_instance.save(self.image)
+            img = self.img_instance
+            img_data = list(img.getdata())
+            no_exif = Image.new(img.mode, img.size)
+            no_exif.putdata(img_data)
+            no_exif.save(self.image)
 
 
     def end_img_instance(self) -> None:
         self.img_instance.close()
-        print("closed")
 
 
     # Execution Cases
@@ -120,6 +121,7 @@ class Manage_exif:
         gps = self.gps_report()
         data = exif + gps
         return data
+
 
     def clean_exif(self):
         data = self.default_info()
