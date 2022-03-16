@@ -37,7 +37,7 @@ class Manage_exif:
         longitude = gps_info["GPSLongitude"]
         final_latitude = latitude[0] + (latitude[1]/60.0) + (latitude[2]/3600.0)
         final_longitude = longitude[0] + (longitude[1]/60.0) + (longitude[2]/3600.0)
-        map_url = f"https://www.google.com/maps/?q={final_latitude},{final_longitude}"
+        map_url = f"Google Map : https://www.google.com/maps/?q={final_latitude},{final_longitude}"
         return map_url
 
 
@@ -52,7 +52,8 @@ class Manage_exif:
         gps_info = self.get_gps_exif()
         data = [f"{key}: {value}" for key, value in gps_info.items()]
         report_data = '\n'.join(data)
-        return report_data
+        map = self.create_map_url()
+        return report_data + map
 
 
     def default_info(self) -> str:

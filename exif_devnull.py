@@ -42,7 +42,7 @@ def main():
             elif option == 3:
                 manager.delete_exif()
 
-            elif option > 3:
+            elif option > 3 or option < 0:
                 print("Option out of bounds, please choose again.")
 
             else:
