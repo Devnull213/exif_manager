@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import sys
-import time
 from manager import Manage_exif
 
 def main():
@@ -18,8 +17,6 @@ def main():
 
                 """)
 
-    option = 1
-
     manager = Manage_exif(sys.argv[1])
     main_data = manager.main_exec()
 
@@ -29,23 +26,31 @@ def main():
     3) Delete exif info\r
     0) Quit\n""")
 
-    while option != 0:
+    while True:
 
-        option = int(input("Enter option: "))
-
-        if option <= 3:
-            time.sleep(0.3)
+        try:
+            option = int(input("Enter option: "))
 
             if option == 1:
                 print(main_data)
+
             elif option == 2:
                 with open ("./report.txt", "w") as report:
                     report.write(main_data)
                 print("Report generated succesfully.\n")
+
             elif option == 3:
                 manager.delete_exif()
 
-    time.sleep(0.3)
+            elif option > 3:
+                print("Option out of bounds, please choose again.")
+
+            else:
+                break
+
+        except:
+            print("You entered a non valid option, try again.")
+
     manager.end_img_instance()
     print("Program finished.")
 
